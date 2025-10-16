@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Petition Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #eff1f4;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        #signatureCanvas {
+            border: 2px solid #11336e;
+            border-radius: 8px;
+            cursor: crosshair;
+            background: white;
+        }
+        .form-container {
+            background: white;
+            border: 1px solid #d1d5db;
+        }
+        .input-field {
+            border: 1px solid #d1d5db;
+            transition: border-color 0.2s;
+        }
+        .input-field:focus {
+            border-color: #11336e;
+            outline: none;
+        }
+        .btn-primary {
+            background-color: #11336e;
+        }
+        .btn-primary:hover {
+            background-color: #0f2a5a;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-2xl">
+        <div class="form-container rounded-lg shadow p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-2xl font-bold mb-2" style="color: #11336e;">Employee Petition Form</h1>
+                <p class="text-gray-600">Please fill in your details and provide your signature</p>
+            </div>
+
+            <form id="petitionForm" class="space-y-6">
+                <div>
+                    <label for="employeeName" class="block text-sm font-medium mb-2" style="color: #11336e;">
+                        Full Name *
+                    </label>
+                    <input 
+                        type="text" 
+                        id="employeeName" 
+                        name="employeeName" 
+                        required 
+                        class="input-field w-full px-3 py-2 rounded"
+                        placeholder="Enter your full name"
+                    >
+                </div>
+
+                <div>
+                    <label for="department" class="block text-sm font-medium mb-2" style="color: #11336e;">
+                        Department *
+                    </label>
+                    <select 
+                        id="department" 
+                        name="department" 
+                        required 
+                        class="input-field w-full px-3 py-2 rounded"
+                    >
+                        <option value="">Select your department</option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="Information Technology">Information Technology</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Operations">Operations</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Customer Service">Customer Service</option>
+                        <option value="Legal">Legal</option>
+                        <option value="Administration">Administration</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="staffId" class="block text-sm font-medium mb-2" style="color: #11336e;">
+                        Staff ID *
+                    </label>
+                    <input 
+                        type="text" 
+                        id="staffId" 
+                        name="staffId" 
+                        required 
+                        class="input-field w-full px-3 py-2 rounded"
+                        placeholder="Enter your staff ID"
+                    >
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium mb-2" style="color: #11336e;">
+                        Digital Signature *
+                    </label>
+                    <div class="border rounded p-4" style="background-color: #f9fafb;">
+                        <canvas 
+                            id="signatureCanvas" 
+                            width="600" 
+                            height="200" 
+                            class="w-full h-40 bg-white"
+                        ></canvas>
+                        <div class="flex justify-between items-center mt-3">
+                            <p class="text-sm text-gray-600">Sign above using your mouse or finger</p>
+                            <button 
+                                type="button" 
+                                id="clearSignature" 
+                                class="px-3 py-1 text-sm text-red-600 hover:text-red-800 border border-red-300 rounded"
+                            >
+                                Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pt-4">
+                    <button 
+                        type="submit" 
+                        class="btn-primary w-full text-white py-3 px-6 rounded font-medium"
+                    >
+                        Submit Petition
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-6 max-w-md mx-4 shadow-lg">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-lg font-medium mb-2" style="color: #11336e;">Form Submitted Successfully!</h3>
+                <p class="text-gray-600 mb-6">Your petition has been recorded. Thank you for your participation.</p>
+                <button 
+                    id="closeModal" 
+                    class="btn-primary w-full text-white py-2 px-4 rounded"
+                >
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="signature.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
