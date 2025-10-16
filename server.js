@@ -39,7 +39,7 @@ async function initDatabase() {
         id INT AUTO_INCREMENT PRIMARY KEY,
         employeeName VARCHAR(255) NOT NULL,
         department VARCHAR(255) NOT NULL,
-        staffId VARCHAR(100) NOT NULL,
+        staffId VARCHAR(100) NOT NULL UNIQUE,
         signatureData LONGTEXT NOT NULL,
         submittedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
@@ -59,6 +59,33 @@ app.get('/admin-dash', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
+// Check if staff ID already exists
+app.get('/api/check-staff/:staffId', async (req, res) => {
+  const { staffId } = req.params;
+  
+  try {
+    const [existing] = await db.execute(
+      `SELECT id, employeeName, submittedAt FROM esig_submissions WHERE staffId = ?`,
+      [staffId]
+    );
+
+    if (existing.length > 0) {
+      res.json({ 
+        exists: true, 
+        submission: {
+          employeeName: existing[0].employeeName,
+          submittedAt: existing[0].submittedAt
+        }
+      });
+    } else {
+      res.json({ exists: false });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Database error' });
+  }
+});
+
 app.post('/api/submit', async (req, res) => {
   const { employeeName, department, staffId, signatureData } = req.body;
   
@@ -67,14 +94,40 @@ app.post('/api/submit', async (req, res) => {
   }
 
   try {
+    // Check if staff ID already exists
+    const [existing] = await db.execute(
+      `SELECT id FROM esig_submissions WHERE staffId = ?`,
+      [staffId]
+    );
+
+    if (existing.length > 0) {
+      return res.status(409).json({ 
+        error: 'This Staff ID has already submitted a petition. Each employee can only submit once.' 
+      });
+    }
+
+    // Insert new submission
     const [result] = await db.execute(
       `INSERT INTO esig_submissions (employeeName, department, staffId, signatureData) VALUES (?, ?, ?, ?)`,
       [employeeName, department, staffId, signatureData]
     );
-    res.json({ success: true, id: result.insertId });
+    
+    res.json({ 
+      success: true, 
+      id: result.insertId,
+      message: 'Petition submitted successfully!' 
+    });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Database error' });
+    
+    // Handle MySQL duplicate entry error
+    if (error.code === 'ER_DUP_ENTRY') {
+      return res.status(409).json({ 
+        error: 'This Staff ID has already submitted a petition. Each employee can only submit once.' 
+      });
+    }
+    
+    res.status(500).json({ error: 'Database error. Please try again.' });
   }
 });
 
