@@ -37,7 +37,11 @@ function renderSubmissions() {
                         <p class="text-sm text-gray-500">${submission.department} • ${submission.staffId}</p>
                     </div>
                     <div class="text-sm text-gray-500 hidden sm:block">
-                        ${new Date(submission.submittedAt).toLocaleDateString()}
+                        ${new Date(submission.submittedAt).toLocaleDateString('en-GB', { 
+                            day: '2-digit', 
+                            month: 'short', 
+                            year: 'numeric' 
+                        })}
                     </div>
                     <div class="flex-shrink-0">
                         <img src="${submission.signatureData}" alt="Signature" class="w-20 h-12 object-contain border rounded bg-gray-50 cursor-pointer" onclick="viewSignature('${submission.signatureData}')">
