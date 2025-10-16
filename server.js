@@ -55,7 +55,7 @@ async function initDatabase() {
 // Initialize database on startup
 initDatabase();
 
-app.get('/admin-dashboard-secure-2024', (req, res) => {
+app.get('/admin-dash', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 

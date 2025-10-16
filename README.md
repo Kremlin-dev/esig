@@ -7,7 +7,7 @@ A professional web-based petition form with digital signature capture for employ
 - ✅ Clean, responsive design
 - ✅ Digital signature capture (mouse/touch)
 - ✅ Form validation
-- ✅ SQLite database storage
+- ✅ SQL database storage
 - ✅ Admin dashboard
 - ✅ CSV export functionality
 - ✅ Mobile-friendly interface
@@ -36,7 +36,7 @@ A professional web-based petition form with digital signature capture for employ
 3. Submit the form
 
 ### For Administrators
-1. Visit `/admin-dashboard-secure-2024` to view all submissions
+1. Visit `..` to view all submissions
 2. Click "View Signature" to see individual signatures
 3. Use "Export CSV" to download submission data
 
@@ -46,7 +46,7 @@ A professional web-based petition form with digital signature capture for employ
 
 - **Frontend:** HTML5, TailwindCSS, Vanilla JavaScript
 - **Backend:** Node.js, Express
-- **Database:** SQLite
+- **Database:** MySQL
 - **Signature:** HTML5 Canvas API
 
 ## File Structure
@@ -54,7 +54,7 @@ A professional web-based petition form with digital signature capture for employ
 ```
 ├── server.js           # Express server
 ├── package.json        # Dependencies
-├── petitions.db        # SQLite database (auto-created)
+├── .env               # Environment variables (MySQL config)
 └── public/
     ├── index.html      # Main petition form
     ├── admin.html      # Admin dashboard

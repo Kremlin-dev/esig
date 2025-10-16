@@ -37,30 +37,30 @@
     </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
-    <div class="container mx-auto px-4 py-8 max-w-6xl">
+    <div class="container mx-auto px-4 py-4 sm:py-8 max-w-6xl">
         <div class="admin-container rounded-lg shadow">
-            <div class="p-6 border-b border-gray-200">
-                <div class="flex justify-between items-center">
+            <div class="p-4 sm:p-6 border-b border-gray-200">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div>
-                        <h1 class="text-2xl font-bold mb-1" style="color: #11336e;">Admin Dashboard</h1>
-                        <p class="text-gray-600">Manage employee petition submissions</p>
+                        <h1 class="text-xl sm:text-2xl font-bold mb-1" style="color: #11336e;">Admin Dashboard</h1>
+                        <p class="text-gray-600 text-sm sm:text-base">Manage employee petition submissions</p>
                     </div>
-                    <div class="flex gap-3">
+                    <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
                         <button 
                             id="exportPrint" 
-                            class="btn-secondary text-white px-4 py-2 rounded font-medium"
+                            class="btn-secondary text-white px-4 py-3 sm:py-2 rounded font-medium text-sm sm:text-base"
                         >
                             Print Report
                         </button>
                         <button 
                             id="exportExcel" 
-                            class="btn-secondary text-white px-4 py-2 rounded font-medium"
+                            class="btn-secondary text-white px-4 py-3 sm:py-2 rounded font-medium text-sm sm:text-base"
                         >
                             Export Excel
                         </button>
                         <a 
                             href="/" 
-                            class="btn-primary text-white px-4 py-2 rounded font-medium"
+                            class="btn-primary text-white px-4 py-3 sm:py-2 rounded font-medium text-sm sm:text-base text-center"
                         >
                             Back to Form
                         </a>
@@ -68,7 +68,7 @@
                 </div>
             </div>
             
-            <div class="p-6">
+            <div class="p-4 sm:p-6">
                 <div id="loading" class="text-center py-12">
                     <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-gray-300 border-t-blue-600"></div>
                     <p class="mt-2 text-gray-600">Loading submissions...</p>
