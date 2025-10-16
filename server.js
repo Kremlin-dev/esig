@@ -92,6 +92,17 @@ app.post('/api/submit', async (req, res) => {
     return res.status(400).json({ error: 'All fields are required' });
   }
 
+  // Validate signature data format and content
+  if (!signatureData.startsWith('data:image/')) {
+    return res.status(400).json({ error: 'Invalid signature format' });
+  }
+
+  // Check if signature is just a blank canvas (minimal validation)
+  const blankCanvasData = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
+  if (signatureData === blankCanvasData || signatureData.length < 100) {
+    return res.status(400).json({ error: 'Please provide a valid signature before submitting' });
+  }
+
   try {
     // Check if staff ID already exists
     const [existing] = await db.execute(

@@ -6,8 +6,24 @@ document.getElementById('petitionForm').addEventListener('submit', async (e) => 
     const department = formData.get('department');
     const staffId = formData.get('staffId');
     
+    // Validate signature
     if (signatureCanvas.isEmpty()) {
-        alert('Please provide your signature before submitting.');
+        // Highlight signature area
+        const signatureContainer = document.getElementById('signatureContainer');
+        const signatureCanvas = document.getElementById('signatureCanvas');
+        
+        signatureContainer.style.borderColor = '#ef4444';
+        signatureContainer.style.backgroundColor = '#fef2f2';
+        signatureCanvas.style.borderColor = '#ef4444';
+        
+        // Remove highlight after 3 seconds
+        setTimeout(() => {
+            signatureContainer.style.borderColor = '';
+            signatureContainer.style.backgroundColor = '#f9fafb';
+            signatureCanvas.style.borderColor = '#d1d5db';
+        }, 3000);
+        
+        showErrorModal('Signature Required', 'Please provide your digital signature before submitting the petition.');
         return;
     }
     
