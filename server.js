@@ -59,7 +59,6 @@ app.get('/admin-dash', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
-// Check if staff ID already exists
 app.get('/api/check-staff/:staffId', async (req, res) => {
   const { staffId } = req.params;
   
