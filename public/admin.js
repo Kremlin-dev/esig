@@ -27,21 +27,12 @@ function renderSubmissions() {
         const submissionCard = document.createElement('div');
         submissionCard.className = 'submission-card rounded-lg p-4 border border-gray-200';
         
-        const submittedDate = new Date(submission.submittedAt).toLocaleString();
-        
         submissionCard.innerHTML = `
             <div class="flex items-center justify-between">
                 <div class="flex items-center space-x-4 flex-1">
                     <div class="flex-1 min-w-0">
                         <h3 class="font-medium truncate" style="color: #11336e;">${submission.employeeName}</h3>
                         <p class="text-sm text-gray-500">${submission.department} • ${submission.staffId}</p>
-                    </div>
-                    <div class="text-sm text-gray-500 hidden sm:block">
-                        ${new Date(submission.submittedAt).toLocaleDateString('en-GB', { 
-                            day: '2-digit', 
-                            month: 'short', 
-                            year: 'numeric' 
-                        })}
                     </div>
                     <div class="flex-shrink-0">
                         <img src="${submission.signatureData}" alt="Signature" class="w-20 h-12 object-contain border rounded bg-gray-50 cursor-pointer" onclick="viewSignature('${submission.signatureData}')">

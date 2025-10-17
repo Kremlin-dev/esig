@@ -162,8 +162,7 @@ app.get('/api/export-excel', async (req, res) => {
       { header: 'ID', key: 'id', width: 10 },
       { header: 'Employee Name', key: 'employeeName', width: 25 },
       { header: 'Department', key: 'department', width: 25 },
-      { header: 'Staff ID', key: 'staffId', width: 15 },
-      { header: 'Submitted At', key: 'submittedAt', width: 20 }
+      { header: 'Staff ID', key: 'staffId', width: 15 }
     ];
 
     rows.forEach(row => {
@@ -171,8 +170,7 @@ app.get('/api/export-excel', async (req, res) => {
         id: row.id,
         employeeName: row.employeeName,
         department: row.department,
-        staffId: row.staffId,
-        submittedAt: new Date(row.submittedAt).toLocaleString()
+        staffId: row.staffId
       });
     });
 
@@ -273,7 +271,6 @@ app.get('/api/export-html', async (req, res) => {
       <body>
         <div class="header">
           <h1>Employee Petition Submissions</h1>
-          <p>Generated on ${new Date().toLocaleDateString()}</p>
           <p><strong>Total Submissions: ${rows.length}</strong></p>
         </div>
         
@@ -284,7 +281,6 @@ app.get('/api/export-html', async (req, res) => {
               <th>Employee Name</th>
               <th>Department</th>
               <th>Staff ID</th>
-              <th>Date Submitted</th>
               <th>Signature</th>
             </tr>
           </thead>
@@ -298,7 +294,6 @@ app.get('/api/export-html', async (req, res) => {
               <td class="name-cell">${row.employeeName}</td>
               <td>${row.department}</td>
               <td>${row.staffId}</td>
-              <td>${new Date(row.submittedAt).toLocaleDateString()}</td>
               <td class="signature-cell">
                 <img src="${row.signatureData}" class="signature" alt="Signature">
               </td>
